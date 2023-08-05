@@ -30,22 +30,22 @@ const Login = ({ setIsLoggedIn, isLoggedIn }) => {
   return (
 
 
-    <div class="wrapper">
-      <div class="form-box login">
-      <h1  class="todo">To Do List!</h1>
+    <div className="wrapper">
+      <div className="form-box login">
+      <h1  className="todo">To Do List!</h1>
         <h2>Iniciar sesión</h2>
       <form onSubmit={handleSubmit}>
-      <div class="input-box">
-                <span class="icon"></span>  
+      <div className="input-box">
+                <span className="icon"></span>  
                 <input type="text"  placeholder="Usuario" value={username} onChange={handleUsernameChange} />
         </div>
-      <div class="input-box">
-                  <span class="icon"></span>
+      <div className="input-box">
+                  <span className="icon"></span>
     
                   <input type="password" placeholder="Contraseña" value={password} onChange={handlePasswordChange} />
       </div>
-        <button type="submit" class="btn">Iniciar sesión</button>  
-      <div class="login-register">
+        <button type="submit" className="btn">Iniciar sesión</button>  
+      <div className="login-register">
                   <p>¿No tienes una cuenta? <Link to="/registro">Regístrate</Link></p>
       </div> 
        
