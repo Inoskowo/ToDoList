@@ -32,20 +32,8 @@ function App() {
       <Router>
         <Navbar username={username} handleLogout={handleLogout} />
         <Routes>
-          <Route
-            path="/"
-            element={
-              isLoggedIn ? (
-                <TodoList />
-              ) : (
-                <Login
-                  setIsLoggedIn={setIsLoggedIn}
-                  isLoggedIn={isLoggedIn}
-                  setUsername={setUsername}
-                />
-              )
-            }
-          />
+          <Route   path="/"  element={isLoggedIn ? ( <TodoList />) : (<Login setIsLoggedIn={setIsLoggedIn}isLoggedIn={isLoggedIn}setUsername={setUsername} />)} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />} />
           <Route
             path="/registro"
             element={!isLoggedIn ? <Register /> : <Navigate to="/" />}
