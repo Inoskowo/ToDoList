@@ -35,7 +35,9 @@ const Login = ({ setIsLoggedIn, isLoggedIn, setUsername }) => {
 
       if (response.ok) {
         setIsLoggedIn(true);
-        setUsername(username); // Establecer el nombre de usuario en App.js
+        setUsername(username);
+        localStorage.setItem('isLoggedIn', true); // Guarda el estado de autenticación
+        localStorage.setItem('username', username);  // Establecer el nombre de usuario en App.js
       } else {
         setErrorMessage('Credenciales incorrectas. Inténtalo de nuevo.');
       }
@@ -51,7 +53,7 @@ const Login = ({ setIsLoggedIn, isLoggedIn, setUsername }) => {
   return (
     <div className="wrapper">
       <div className="form-box login">
-        <h1 className="todo">To Do List!</h1>
+
         <h2>Iniciar sesión</h2>
         {/* Mostrar mensaje de error con la clase CSS */}
         {errorMessage && <p className="error-message">{errorMessage}</p>}

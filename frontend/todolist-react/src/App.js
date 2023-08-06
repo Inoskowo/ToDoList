@@ -1,5 +1,4 @@
-// App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './login';
@@ -14,7 +13,19 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUsername('');
+    localStorage.removeItem('isLoggedIn'); // Borra la información de autenticación
+    localStorage.removeItem('username'); // Borra el nombre de usuario
   };
+
+  // Verifica si hay información de autenticación en localStorage al cargar la página
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    const storedUsername = localStorage.getItem('username');
+    if (storedIsLoggedIn === 'true' && storedUsername) {
+      setIsLoggedIn(true);
+      setUsername(storedUsername);
+    }
+  }, []);
 
   return (
     <div className="App">

@@ -1,9 +1,20 @@
-// TodoList.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './styles/style.css';
 
 const TodoList = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
+
+  // Cargar tareas desde localStorage al cargar la página
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    setTasks(storedTasks);
+  }, []);
+
+  // Guardar tareas en localStorage cada vez que cambien
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleTaskChange = (event) => {
     setNewTask(event.target.value);
@@ -18,23 +29,23 @@ const TodoList = () => {
   };
 
   return (
-    
     <div className="wrapper">
-      <h2>Bienvenido al To-Do List</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Agregar una nueva tarea"
-          value={newTask}
-          onChange={handleTaskChange}
-        />
-        <button type="submit">Agregar</button>
-      </form>
-      <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>{task}</li>
-        ))}
-      </ul>
+      <div className="task-container"> {/* Nuevo contenedor */}
+        <form onSubmit={handleSubmit} className="task-form">
+          <input
+            type="text"
+            placeholder="Agregar una nueva tarea"
+            value={newTask}
+            onChange={handleTaskChange}
+          />
+          <button type="submit">Agregar</button>
+        </form>
+        <ul className="task-list">
+          {tasks.map((task, index) => (
+            <li key={index}>{task}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
