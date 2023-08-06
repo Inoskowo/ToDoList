@@ -15,7 +15,7 @@ public class Usuario {
 
     private String usuario; // Atributo para el nombre de usuario
     private String email; // Atributo para el correo electrónico
-    private String contraseña; // Atributo para la contraseña
+    private String contrasena; // Atributo para la contraseña
 
     // Getter y Setter para el atributo ID
     public Long getID() {
@@ -45,11 +45,11 @@ public class Usuario {
     }
 
     // Getter y Setter para el atributo contraseña
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 }

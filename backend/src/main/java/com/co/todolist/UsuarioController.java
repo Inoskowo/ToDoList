@@ -18,10 +18,35 @@ public class UsuarioController {
     @PostMapping("/registro") // Endpoint para el registro de usuarios
     public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
         try {
+            System.out.println("Solicitud recibida para registrar usuario: " + usuario.getUsuario());
+
             Usuario nuevoUsuario = usuarioService.registrarNuevoUsuario(usuario);
+            System.out.println("Nuevo usuario registrado: " + nuevoUsuario.getUsuario());
+
             return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
         } catch (RegistroException e) {
+            System.out.println("Error al registrar usuario: " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/login") // Nuevo endpoint para el inicio de sesión
+    public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
+        try {
+            System.out.println("Solicitud de inicio de sesión recibida para el usuario: " + usuario.getUsuario());
+
+            Usuario usuarioAutenticado = usuarioService.autenticarUsuario(usuario);
+
+            if (usuarioAutenticado != null) {
+                System.out.println("Usuario autenticado: " + usuarioAutenticado.getUsuario());
+                return new ResponseEntity<>(usuarioAutenticado, HttpStatus.OK);
+            } else {
+                System.out.println("Error de autenticación para el usuario: " + usuario.getUsuario());
+                return new ResponseEntity<>("Credenciales incorrectas", HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            System.out.println("Error durante el inicio de sesión: " + e.getMessage());
+            return new ResponseEntity<>("Error durante el inicio de sesión", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

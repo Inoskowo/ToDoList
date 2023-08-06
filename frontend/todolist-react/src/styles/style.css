@@ -10,6 +10,19 @@ body{
     background-position: center;
     }
 
+.header {
+    position: fixed;
+    top: 0; /* Alineación en la parte superior */
+    left: 0;
+    color: #fff; /* Color del texto en el header */
+    padding: 1px 0; /* Espaciado interno en el header */
+    text-align: center; /* Centrar el contenido del header */
+     width: 100%; /* Ancho del header */
+      }
+      
+
+
+
 .wrapper{
     position: relative;
     width: 400px;
@@ -119,3 +132,16 @@ margin: 30px e;
 .login-register p a:hover{
     text-decoration: underline;
 }
+
+.success-message {
+    color: green;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+
+.error-message {
+    color: rgb(255, 255, 255); /* Cambia el color según tus preferencias */
+    font-weight: 390;
+
+  }

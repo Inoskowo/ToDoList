@@ -13,6 +13,52 @@
   }
 }
 
+.navbar {
+  display: flex;
+  background: transparent;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  color: white;
+}
+
+.navbar-logo h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links p {
+  margin: 0;
+  margin-right: 20px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+  color: #ddd;
+}
+
+.button {
+  background: #344952;
+  color: white; 
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  padding: 10px 20px; 
+  font-size: 0.90em;
+  cursor: pointer; 
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

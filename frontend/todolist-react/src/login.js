@@ -1,56 +1,90 @@
 // Archivo: Login.js
-
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import './styles/style.css';
 
-
-const Login = ({ setIsLoggedIn, isLoggedIn }) => {
-  const [username, setUsername] = useState('');
+const Login = ({ setIsLoggedIn, isLoggedIn, setUsername }) => {
+  const [username, setLocalUsername] = useState(''); // Cambia el nombre de la variable para evitar conflicto
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+    setLocalUsername(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Aquí puedes hacer la solicitud al backend para verificar las credenciales del usuario
-    // Por ahora, simularemos un inicio de sesión exitoso
-    console.log('Nombre de usuario:', username);
-    console.log('Contraseña:', password);
-    setIsLoggedIn(true); // Establecer el estado de inicio de sesión a verdadero
+
+    const userData = {
+      usuario: username,
+      contrasena: password,
+    };
+
+    try {
+      const response = await fetch('http://localhost:8080/api/usuarios/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        setIsLoggedIn(true);
+        setUsername(username); // Establecer el nombre de usuario en App.js
+      } else {
+        setErrorMessage('Credenciales incorrectas. Inténtalo de nuevo.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
-
-
     <div className="wrapper">
       <div className="form-box login">
-      <h1  className="todo">To Do List!</h1>
+        <h1 className="todo">To Do List!</h1>
         <h2>Iniciar sesión</h2>
-      <form onSubmit={handleSubmit}>
-      <div className="input-box">
-                <span className="icon"></span>  
-                <input type="text"  placeholder="Usuario" value={username} onChange={handleUsernameChange} />
-        </div>
-      <div className="input-box">
-                  <span className="icon"></span>
-    
-                  <input type="password" placeholder="Contraseña" value={password} onChange={handlePasswordChange} />
+        {/* Mostrar mensaje de error con la clase CSS */}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="input-box">
+            <span className="icon"></span>
+            <input
+              type="text"
+              placeholder="Usuario"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </div>
+          <div className="input-box">
+            <span className="icon"></span>
+
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <button type="submit" className="btn">
+            Iniciar sesión
+          </button>
+          <div className="login-register">
+            <p>
+              ¿No tienes una cuenta? <Link to="/registro">Regístrate</Link>
+            </p>
+          </div>
+        </form>
       </div>
-        <button type="submit" className="btn">Iniciar sesión</button>  
-      <div className="login-register">
-                  <p>¿No tienes una cuenta? <Link to="/registro">Regístrate</Link></p>
-      </div> 
-       
-      </form>
-      </div>    
     </div>
   );
 };
