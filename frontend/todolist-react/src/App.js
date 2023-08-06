@@ -20,7 +20,7 @@ function App() {
   // Verifica si hay información de autenticación en localStorage al cargar la página
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-    const storedUsername = localStorage.getItem('username');
+    const storedUsername = localStorage.getItem('username');  
     if (storedIsLoggedIn === 'true' && storedUsername) {
       setIsLoggedIn(true);
       setUsername(storedUsername);
