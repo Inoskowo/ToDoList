@@ -20,7 +20,9 @@ function App() {
   // Verifica si hay información de autenticación en localStorage al cargar la página
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-    const storedUsername = localStorage.getItem('username');  
+    const storedUsername = localStorage.getItem('username');
+    console.log('Stored isLoggedIn:', storedIsLoggedIn);
+    console.log('Stored username:', storedUsername);
     if (storedIsLoggedIn === 'true' && storedUsername) {
       setIsLoggedIn(true);
       setUsername(storedUsername);
@@ -32,12 +34,21 @@ function App() {
       <Router>
         <Navbar username={username} handleLogout={handleLogout} />
         <Routes>
-          <Route   path="/"  element={isLoggedIn ? ( <TodoList />) : (<Login setIsLoggedIn={setIsLoggedIn}isLoggedIn={isLoggedIn}setUsername={setUsername} />)} />
-          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />} />
           <Route
-            path="/registro"
-            element={!isLoggedIn ? <Register /> : <Navigate to="/" />}
+            path="/"
+            element={
+              isLoggedIn ? (
+                <TodoList />
+              ) : (
+                <Login
+                  setIsLoggedIn={setIsLoggedIn}
+                  isLoggedIn={isLoggedIn}
+                  setUsername={setUsername}
+                />
+              )
+            }
           />
+          <Route path="/registro" element={!isLoggedIn ? <Register /> : <Navigate to="/" />} />
         </Routes>
       </Router>
     </div>
@@ -45,4 +56,3 @@ function App() {
 }
 
 export default App;
-  

@@ -4,7 +4,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('background.jpg') no-repeat;
+    background: url('backf1.jpg') no-repeat;
     background-size: cover;
     background-position: center;
     }
@@ -151,16 +151,15 @@ margin: 30px e;
   }
   
 
-
   .task-form {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Ajusta el margen inferior de todo el formulario */
   }
   
   .task-form input {
     flex: 1;
- 
     padding: 10px;
+    margin-right: 10px; /* Agrega un margen derecho entre el input y el botón */
     border: 1px solid #ccc;
     border-radius: 4px;
   }
@@ -180,11 +179,58 @@ margin: 30px e;
   }
   
   .task-list li {
-    margin: 5px 0;
-    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuye los elementos a lo largo del espacio */
+    margin: 10px 0; /* Agrega espacio vertical entre las tareas */
     padding: 10px;
     background-color: #f4f4f4;
     border: 1px solid #ccc;
     border-radius: 20px;
   }
   
+  .task-list li .task-text {
+    flex-grow: 1;
+    margin: 0 10px; /* Agrega espacio horizontal entre el texto y los botones */
+  }
+  
+  .task-list li .task-delete {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  /* Estilos para los iconos Unicode */
+  .task-list li .task-delete::before {
+    content: "\2716"; /* Código Unicode para la "X" */
+  }
+
+.task-item {
+  display: flex;
+  align-items: center;
+}
+
+.task-text {
+  flex: 1; /* Ocupa el espacio restante */
+  margin: 0 10px; /* Agrega espacio horizontal entre el texto y los botones */
+}
+
+.task-item button {
+  padding: 5px; /* Ajusta el tamaño del botón */
+  background-color: #007bff;
+  color: #fff;  
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.task-delete {
+  background-color: #dc3545;
+  font-size: 16px;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+

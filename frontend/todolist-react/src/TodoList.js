@@ -5,16 +5,11 @@ const TodoList = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
-  // Cargar tareas desde localStorage al cargar la página
   useEffect(() => {
     const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     setTasks(storedTasks);
+    localStorage.setItem('tasks', JSON.stringify(storedTasks));
   }, []);
-
-  // Guardar tareas en localStorage cada vez que cambien
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
 
   const handleTaskChange = (event) => {
     setNewTask(event.target.value);
@@ -23,14 +18,29 @@ const TodoList = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newTask.trim() !== '') {
-      setTasks([...tasks, newTask]);
+      const updatedTasks = [...tasks, { text: newTask, completed: false }];
+      setTasks(updatedTasks);
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks));
       setNewTask('');
     }
   };
 
+  const handleToggleComplete = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  };
+
+  const handleDeleteTask = (index) => {
+    const updatedTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  };
+
   return (
     <div className="wrapper">
-      <div className="task-container"> {/* Nuevo contenedor */}
+      <div className="task-container">
         <form onSubmit={handleSubmit} className="task-form">
           <input
             type="text"
@@ -42,7 +52,17 @@ const TodoList = () => {
         </form>
         <ul className="task-list">
           {tasks.map((task, index) => (
-            <li key={index}>{task}</li>
+            <li key={index} className="task-list-item">
+              <div className="task-item">
+                <button onClick={() => handleToggleComplete(index)}>
+                  {task.completed ? '✓' : '○'}
+                </button>
+                <span className={`task-text ${task.completed ? 'completed' : ''}`}>
+                  {task.text}
+                </span>
+                <button onClick={() => handleDeleteTask(index)} className="task-delete"></button>
+              </div>
+            </li>
           ))}
         </ul>
       </div>
